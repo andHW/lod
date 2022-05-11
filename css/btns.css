@@ -1,0 +1,44 @@
+button{
+    /* margin: 1em; */
+    border: #FFF solid 3px;
+    padding: 1em;
+}
+
+button:hover{
+    cursor: pointer;
+    border: #FFF solid 3px !important;
+    color: #FFF !important;
+}
+
+button:active{
+    border: #FFF solid 3px !important;
+    color: #FFF !important;
+}
+
+#btnReset{
+    color: red;
+    border: red 3px solid;
+}
+
+#btnReset:hover{
+    box-shadow: #F00 0 0 1em;
+    text-shadow: #F00 0 0 .5em;
+}
+
+#btnReset:active{
+    background-color: #F00;
+}
+
+#btnSave{
+    color: #0F0;
+    border: #0F0 3px solid;
+}
+
+#btnSave:hover{
+    box-shadow: #0F0 0 0 1em;
+    text-shadow: #0F0 0 0 .5em;
+}
+
+#btnSave:active{
+    background-color: #0F0;
+}

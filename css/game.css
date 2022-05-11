@@ -1,0 +1,20 @@
+#game{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#pixels{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+pixel{
+    width: 1vw;
+    height: 1vw;
+    display: flex;
+    /* using border would mess up the layout */
+    box-shadow: inset 0 0 0 .05vw #FFF;
+    /* border: 1px solid white; */
+}

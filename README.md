@@ -41,4 +41,4 @@ This project is also inspired by Araki's artworks.
 
 ## Technical Details
 
-TODO
+The project is written in vanilla JS.
