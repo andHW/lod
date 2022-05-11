@@ -31,6 +31,14 @@ The youtube videos below are very inspiring to this project.
 - How Jacquard Weaving Works In Details: https://youtu.be/K6NgMNvK52A
 - How Jacquard Loom Weaves More Than Two Colors: https://youtu.be/ZmJSz94oqh4
 
+### A Jojo Reference
+
+This project is also inspired by Araki's artworks.
+
+- Chapter 101, Volume 12, JoJo's Bizarre Adventure Part 6 Jolyne Cujoh: Stone Ocean (ジョジョの奇妙な冒険 第6部 空条徐倫 ―『石作りの海ストーンオーシャン』)
+
+- [The Exact Moment (SPOILER ALERT)](./jojo_reference.pdf)
+
 ## Technical Details
 
 TODO
