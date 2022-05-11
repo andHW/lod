@@ -71,12 +71,6 @@ p {
     padding: 1em;
 }
 
-#buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
 #history{
     margin: 1em 0;
     height: 30vh;

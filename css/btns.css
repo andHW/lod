@@ -1,7 +1,14 @@
+#buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 button{
     /* margin: 1em; */
     border: #FFF solid 3px;
     padding: 1em;
+    font-size: 1.1vw;
 }
 
 button:hover{
@@ -41,4 +48,18 @@ button:active{
 
 #btnSave:active{
     background-color: #0F0;
+}
+
+#btnSaveCode{
+    color: #00F;
+    border: #00F 3px solid;
+}
+
+#btnSaveCode:hover{
+    box-shadow: #00F 0 0 1em;
+    text-shadow: #00F 0 0 .5em;
+}
+
+#btnSaveCode:active{
+    background-color: #00F;
 }
