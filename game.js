@@ -68,7 +68,7 @@ function initPixels() {
         
         let colors = DEFAULT_COLORS;
         let pRowY = DIM;
-        let isPallete = y == pRowY && x >= BSIZE && x <= DIM && x <= colors.length + 1;
+        let isPallete = y == pRowY && x >= BSIZE && x <= DIM && x < colors.length + BSIZE;
 
         let isActive = x == gx && y == gy;
 
