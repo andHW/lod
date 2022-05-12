@@ -29,6 +29,8 @@ The youtube videos below are very inspiring to this project.
 - The general background of Jacquard Loom and Computing: https://youtu.be/MQzpLLhN0fY
 - An Interesting Contemporary Automated Loom without Physical Punched Pards: https://youtu.be/Czun6yVpzp0
 - How Jacquard Weaving Works In Details: https://youtu.be/K6NgMNvK52A
+- **Changing Weft Colors Demonstration**: https://youtu.be/3Bgt3RwrAG0
+<!-- The video above is very clear. The best on Youtube. -->
 - How Jacquard Loom Weaves More Than Two Colors: https://youtu.be/ZmJSz94oqh4
 
 ### A Jojo Reference
