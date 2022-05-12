@@ -1,22 +1,69 @@
-#game{
+#game {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#pixels{
+#game>* {
+    transition: none !important;
+}
+
+#pixels {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background-color: #FFF;
 }
 
-pixel{
+pixel {
     width: 1vw;
     height: 1vw;
     display: flex;
     /* using border would mess up the layout */
-    box-shadow: inset 0 0 0 .1vw #000;
-    background: repeating-conic-gradient(#808080 0% 25%, transparent 0% 50%) 
-              50% / 20px 20px
+    --box-shadow-color: #000;
+    --box-shadow-size: .1vw;
+    box-shadow: inset 0 0 0 var(--box-shadow-size) var(--box-shadow-color);
+    background: repeating-conic-gradient(#888 0% 25%, transparent 0% 50%) 50% / 20px 20px;
+    transition: none !important;
+}
+
+pixel.border {
+    background: white;
+}
+
+pixel.active {
+    --box-shadow-size: .15vw;
+    animation: rainbowize 2s linear infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes rainbowize {
+    15% {
+        --box-shadow-color: #F00;
+    }
+
+    30% {
+        --box-shadow-color: #0F0;
+    }
+
+    45% {
+        --box-shadow-color: #00F;
+    }
+
+    60% {
+        --box-shadow-color: #F0F;
+    }
+
+    75% {
+        --box-shadow-color: #FF0;
+    }
+
+    90% {
+        --box-shadow-color: #0FF;
+    }
 }
