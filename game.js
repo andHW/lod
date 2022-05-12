@@ -4,7 +4,8 @@ const BSIZE = 3;
 const REALDIM = DIM + BSIZE;
 const DEFAULT_COLORS = ["", "#000", "#FFF", "#F00", "#0F0", "#00F", "#FF0", "#F0F", "#0FF"];
 
-let pixels = new Array(DIM * DIM);
+let pixels = new Array(REALDIM * REALDIM);
+let pcard = new Array(DIM);
 let gx = 0;
 let gy = 30;
 let c = "";
@@ -26,6 +27,25 @@ function v_updateActions() {
     $historyDiv.scrollTop = $historyDiv.scrollHeight;
 }
 
+function v_updatePCard() {
+    let $pcard = document.querySelector('#pcard');
+
+    $pcard.replaceChildren();
+    $pcard.style.width = REALDIM + "vw";
+
+    for (var i = 0; i < REALDIM; i++) {
+        let p = pcard[i];
+        let newPElm = document.createElement('pixel');
+
+        if (p.color != "") {
+            newPElm.style.background = "#FFF";
+            newPElm.style.backgroundColor = p.color;
+        }
+
+        $pcard.appendChild(newPElm);
+    }
+}
+
 function v_updatePixels() {
     let $pixelsDiv = document.querySelector('#pixels');
     let dim = DIM + BSIZE;
@@ -36,8 +56,9 @@ function v_updatePixels() {
     for (var i = 0; i < dim * dim; i++) {
         let p = pixels[i];
         let newPElm = document.createElement('pixel');
-        newPElm.id = "pixel-" + i;
 
+        // mostly for debugging purposes but are also fun to have
+        newPElm.id = "pixel-" + i;
         newPElm.setAttribute("x", i % dim);
         newPElm.setAttribute("y", Math.floor(i / dim));
 
@@ -59,13 +80,23 @@ function v_updatePixels() {
     $pixelsDiv.style.width = dim + "vw";
 }
 
+function initPCards() {
+    for (let i = 0; i < REALDIM; i++) {
+        let specialC = "white";
+        if (i < BSIZE || i >= DIM) {
+            specialC = "black";
+        }
+        pcard[i] = new Pixel(specialC, false, false, false);
+    }
+}
+
 function initPixels() {
     let realDim = DIM + BSIZE;
     for (let i = 0; i < realDim * realDim; i++) {
         let x = i % realDim;
         let y = Math.floor(i / realDim);
         let isBorder = x < BSIZE || x >= realDim - BSIZE || y < BSIZE || y >= realDim - BSIZE;
-        
+
         let colors = DEFAULT_COLORS;
         let pRowY = DIM;
         let isPallete = y == pRowY && x >= BSIZE && x <= DIM && x < colors.length + BSIZE;
@@ -88,6 +119,7 @@ function initGame() {
     gy = 32;
     c = "";
     actions = [];
+    initPCards();
     initPixels();
 }
 
@@ -113,7 +145,7 @@ function updateGame(dx, dy) {
 
     pixels[gx + gy * REALDIM].color = c;
 
-    let magic = Math.abs((dx+1)*dx + (dy+2)*dy);
+    let magic = Math.abs((dx + 1) * dx + (dy + 2) * dy);
     let action = ["A", "W", "D", "S"][magic];
     actions.push(action);
 
@@ -122,28 +154,37 @@ function updateGame(dx, dy) {
 }
 
 function resetGame() {
-    if (!confirm("Do you really want to reset? (3)")){
+    if (!confirm("Do you really want to reset? (3)")) {
         return;
     }
 
-    if (!confirm("Do you really want to reset? (2)")){
+    if (!confirm("Do you really want to reset? (2)")) {
         return;
     }
 
-    if (!confirm("Do you really want to reset? (1)")){
+    if (!confirm("Do you really want to reset? (1)")) {
         return;
     }
 
+    hardResetGame();
+}
+
+function hardResetGame() {
     initGame();
     v_updatePixels();
+    v_updatePCard();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    initGame();
-    v_updatePixels();
+    hardResetGame();
 });
 
 document.addEventListener("keydown", function (event) {
+
+    if (document.activeElement.id == "history") {
+        return
+    }
+
     switch (event.code) {
         case "KeyW":
         case "ArrowUp":

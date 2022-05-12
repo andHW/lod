@@ -2,13 +2,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 #game>* {
     transition: none !important;
 }
 
-#pixels {
+#pcard {
+    margin-bottom: 1em;
+    border: .2vw solid white;
+    box-shadow: 0 0 .4vw .4vw rgb(255, 165, 0, 0.9);
+    border-radius: .2em;
+    /* opacity: 0.8; */
+}
+
+#pixels,
+#pcard {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -37,7 +47,7 @@ pixel.active {
     --box-shadow-size: .15vw;
     --box-shadow-color: #FFF;
     animation: rainbowize 2s linear infinite;
-    
+
 }
 
 @keyframes blink {

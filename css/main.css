@@ -19,6 +19,10 @@ h1 {
     padding: 1em;
 }
 
+h2 {
+    padding: 1em;
+}
+
 div {
     /* border: red 1px solid; */
 }
@@ -81,4 +85,14 @@ p {
     overflow: auto;
     padding: 1em;
     text-align: left;
+}
+
+#history::selection {
+    background: #888;
+    color: black;
+}
+
+#history:focus {
+    outline: 0;
+    border-color: yellow;
 }
