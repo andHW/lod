@@ -1,11 +1,12 @@
 // should've built a game class but whatever
 const DIM = 32;
-const BSIZE = 2;
+const BSIZE = 3;
+const REALDIM = DIM + BSIZE;
 const DEFAULT_COLORS = ["", "#000", "#FFF", "#F00", "#0F0", "#00F", "#FF0", "#F0F", "#0FF"];
 
 let pixels = new Array(DIM * DIM);
 let gx = 0;
-let gy = 0;
+let gy = 30;
 let c = "";
 let actions = [];
 
@@ -58,13 +59,13 @@ function initPixels() {
         let x = i % realDim;
         let y = Math.floor(i / realDim);
         let isBorder = x < BSIZE || x >= realDim - BSIZE || y < BSIZE || y >= realDim - BSIZE;
-
+        
+        let colors = DEFAULT_COLORS;
         let pRowY = DIM;
-        let isPallete = y == pRowY && x >= BSIZE && x <= DIM;
+        let isPallete = y == pRowY && x >= BSIZE && x <= DIM && x <= colors.length + 1;
 
         let isActive = x == gx && y == gy;
 
-        let colors = DEFAULT_COLORS;
         let color = "";
 
         if (isPallete) {
@@ -77,14 +78,54 @@ function initPixels() {
 }
 
 function initGame() {
-    gx = 0;
-    gy = 0;
+    gx = 1;
+    gy = 32;
     c = "";
     actions = [];
     initPixels();
 }
 
-function updateGame(nx, ny) {
+function updateGame(dx, dy) {
+    let nx = gx + dx;
+    let ny = gy + dy;
+
+    if (nx < 0 || nx >= REALDIM || ny < 0 || ny >= REALDIM) {
+        //perhaps trigger an visible error here
+        return;
+    }
+
+    pixels[gx + gy * REALDIM].isActive = false;
+    gx = nx;
+    gy = ny;
+    pixels[gx + gy * REALDIM].isActive = true;
+
+    let curPixel = pixels[gx + gy * REALDIM];
+
+    if (curPixel.isPallete) {
+        c = curPixel.color;
+    }
+
+    if (c) {
+        pixels[gx + gy * REALDIM].color = c;
+    }
+
+    v_updatePixels();
+}
+
+function resetGame() {
+    if (!confirm("Do you really want to reset? (3)")){
+        return;
+    }
+
+    if (!confirm("Do you really want to reset? (2)")){
+        return;
+    }
+
+    if (!confirm("Do you really want to reset? (1)")){
+        return;
+    }
+
+    initGame();
     v_updatePixels();
 }
 
@@ -116,6 +157,7 @@ document.addEventListener("keydown", function (event) {
             break;
 
         case "KeyR":
+            resetGame();
             break;
 
         default:

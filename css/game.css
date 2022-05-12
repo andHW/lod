@@ -28,12 +28,16 @@ pixel {
 }
 
 pixel.border {
-    background: white;
+    --box-shadow-size: .1vw;
+    background: unset;
+    opacity: .5;
 }
 
 pixel.active {
     --box-shadow-size: .15vw;
+    --box-shadow-color: #FFF;
     animation: rainbowize 2s linear infinite;
+    
 }
 
 @keyframes blink {
@@ -43,27 +47,27 @@ pixel.active {
 }
 
 @keyframes rainbowize {
-    15% {
+    0% {
         --box-shadow-color: #F00;
     }
 
-    30% {
+    15% {
         --box-shadow-color: #0F0;
     }
 
-    45% {
+    30% {
         --box-shadow-color: #00F;
     }
 
-    60% {
+    45% {
         --box-shadow-color: #F0F;
     }
 
-    75% {
+    60% {
         --box-shadow-color: #FF0;
     }
 
-    90% {
+    75% {
         --box-shadow-color: #0FF;
     }
 }
