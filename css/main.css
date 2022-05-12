@@ -73,10 +73,12 @@ p {
 }
 
 #history {
-    margin: 1em 0;
+    margin: 1em auto;
     height: 30vh;
-    width: 100%;
+    width: 80%;
     border: 5px dashed #FFF;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     overflow: auto;
+    padding: 1em;
+    text-align: left;
 }

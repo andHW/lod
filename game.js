@@ -20,6 +20,12 @@ class Pixel {
     }
 }
 
+function v_updateActions() {
+    let $historyDiv = document.querySelector('#history');
+    $historyDiv.innerHTML = actions.join("");
+    $historyDiv.scrollTop = $historyDiv.scrollHeight;
+}
+
 function v_updatePixels() {
     let $pixelsDiv = document.querySelector('#pixels');
     let dim = DIM + BSIZE;
@@ -105,11 +111,14 @@ function updateGame(dx, dy) {
         c = curPixel.color;
     }
 
-    if (c) {
-        pixels[gx + gy * REALDIM].color = c;
-    }
+    pixels[gx + gy * REALDIM].color = c;
+
+    let magic = Math.abs((dx+1)*dx + (dy+2)*dy);
+    let action = ["A", "W", "D", "S"][magic];
+    actions.push(action);
 
     v_updatePixels();
+    v_updateActions();
 }
 
 function resetGame() {
@@ -157,7 +166,7 @@ document.addEventListener("keydown", function (event) {
             break;
 
         case "KeyR":
-            resetGame();
+            // resetGame();
             break;
 
         default:
