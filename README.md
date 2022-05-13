@@ -35,7 +35,8 @@ The youtube videos below are very inspiring to this project.
 
 ### Other web projects
 
-This project is of course inspired by [r/place on reddit](https://www.reddit.com/r/place/) as well.
+This project is of course, inspired by [r/place on reddit](https://www.reddit.com/r/place/) as well.
+The color palette originates from the r/place.
 
 ### A Jojo Reference
 
@@ -47,6 +48,6 @@ This project is also inspired by Araki's artworks.
 
 ## Technical Details
 
-The project is written in vanilla JS.
+The web-based weaving machine is written in vanilla JS.
 
 The imageCode generator (TODO) is written in Python.
