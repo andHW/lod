@@ -6,6 +6,8 @@ const DEFAULT_COLORS = ["", "#000", "#FFF", "#F00", "#0F0", "#00F", "#FF0", "#F0
 
 let pixels = new Array(REALDIM * REALDIM);
 let pcard = new Array(DIM);
+
+// gx,gy = game x,y (the active pixel cordinates)
 let gx = 0;
 let gy = 30;
 let c = "";
@@ -13,11 +15,19 @@ let actions = [];
 
 
 class Pixel {
-    constructor(color, isBorder, isPallete, isActive) {
+    constructor(color, isBorder, isPallete, isActive, isBlocked) {
         this.color = color;
         this.isBorder = isBorder;
         this.isActive = isActive;
         this.isPallete = isPallete;
+        this.isBlocked = isBlocked;
+    }
+}
+
+class PCardSlot {
+    constructor(isHole, clickable) {
+        this.isHole = isHole;
+        this.clickable = clickable;
     }
 }
 
@@ -25,6 +35,21 @@ function v_updateActions() {
     let $historyDiv = document.querySelector('#history');
     $historyDiv.innerHTML = actions.join("");
     $historyDiv.scrollTop = $historyDiv.scrollHeight;
+}
+
+function toggleCol(colI) {
+    for (let i = 0; i < REALDIM; i++) {
+        let pi = colI + i * REALDIM;
+        pixels[pi].isBlocked = !pixels[pi].isBlocked;
+        v_updatePixel(pi);
+    }
+}
+
+function togglePCardHole(ci) {
+    pcard[ci].isHole = !pcard[ci].isHole;
+    v_updatePCard();
+
+    toggleCol(ci);
 }
 
 function v_updatePCard() {
@@ -37,16 +62,49 @@ function v_updatePCard() {
         let p = pcard[i];
         let newPElm = document.createElement('pixel');
 
-        if (p.color != "") {
-            newPElm.style.background = "#FFF";
-            newPElm.style.backgroundColor = p.color;
+        if (p.isHole) {
+            newPElm.classList.add('isHole');
         }
+
+        if (p.clickable) {
+            newPElm.classList.add('clickable');
+        }
+
+        let ci = i;
+        newPElm.addEventListener('click', function () {
+            togglePCardHole(ci);
+        });
 
         $pcard.appendChild(newPElm);
     }
 }
 
-function v_updatePixels() {
+function v_updatePixel(pi) {
+    let $pixels = document.querySelectorAll('#pixels pixel');
+    let $pixel = $pixels[pi];
+    let p = pixels[pi];
+
+    if (p.isBorder) {
+        $pixel.classList.add('border');
+    } else {
+        $pixel.classList.remove('border');
+    }
+
+    if (p.isActive) {
+        $pixel.classList.add('active');
+    } else {
+        $pixel.classList.remove('active');
+    }
+
+    if (p.color != "") {
+        $pixel.style.background = "#FFF";
+        $pixel.style.backgroundColor = p.color;
+    } else {
+        $pixel.style = ""
+    }
+}
+
+function v_createPixels() {
     let $pixelsDiv = document.querySelector('#pixels');
     let dim = DIM + BSIZE;
 
@@ -82,11 +140,13 @@ function v_updatePixels() {
 
 function initPCards() {
     for (let i = 0; i < REALDIM; i++) {
-        let specialC = "white";
+        let isClickable = true;
+        let isHole = true;
         if (i < BSIZE || i >= DIM) {
-            specialC = "black";
+            isHole = false;
+            isClickable = false;
         }
-        pcard[i] = new Pixel(specialC, false, false, false);
+        pcard[i] = new PCardSlot(isHole, isClickable);
     }
 }
 
@@ -110,7 +170,7 @@ function initPixels() {
             isBorder = false;
         }
 
-        pixels[i] = new Pixel(color, isBorder, isPallete, isActive);
+        pixels[i] = new Pixel(color, isBorder, isPallete, isActive, false);
     }
 }
 
@@ -123,7 +183,13 @@ function initGame() {
     initPixels();
 }
 
+function xyToPIndex(x, y) {
+    return x + y * REALDIM;
+}
+
+// dx, dy = direction x/y
 function updateGame(dx, dy) {
+    // nx,ny = new x/y
     let nx = gx + dx;
     let ny = gy + dy;
 
@@ -133,24 +199,28 @@ function updateGame(dx, dy) {
     }
 
     pixels[gx + gy * REALDIM].isActive = false;
-    gx = nx;
-    gy = ny;
-    pixels[gx + gy * REALDIM].isActive = true;
+    pixels[nx + ny * REALDIM].isActive = true;
 
-    let curPixel = pixels[gx + gy * REALDIM];
+    let curPixel = pixels[nx + ny * REALDIM];
 
     if (curPixel.isPallete) {
         c = curPixel.color;
     }
 
-    pixels[gx + gy * REALDIM].color = c;
+    if (!curPixel.isBlocked) {
+        pixels[nx + ny * REALDIM].color = c;
+    }
 
     let magic = Math.abs((dx + 1) * dx + (dy + 2) * dy);
     let action = ["A", "W", "D", "S"][magic];
     actions.push(action);
 
-    v_updatePixels();
+    // v_createPixels();
+    v_updatePixel(xyToPIndex(gx, gy));
+    v_updatePixel(xyToPIndex(nx, ny));
     v_updateActions();
+    gx = nx;
+    gy = ny;
 }
 
 function resetGame() {
@@ -169,9 +239,14 @@ function resetGame() {
     hardResetGame();
 }
 
+function copyCode() {
+    let $code = document.querySelector('#history');
+    navigator.clipboard.writeText($code.innerHTML);
+}
+
 function hardResetGame() {
     initGame();
-    v_updatePixels();
+    v_createPixels();
     v_updatePCard();
 }
 

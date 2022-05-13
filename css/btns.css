@@ -63,3 +63,22 @@ button:active{
 #btnSaveCode:active{
     background-color: #00F;
 }
+
+#pcard > pixel:not(.clickable){
+    background: white;
+    box-shadow: unset;
+}
+
+#pcard > pixel.clickable{
+    cursor: pointer;
+    background-color: white;
+}
+
+#pcard > pixel.clickable.isHole{
+    background: transparent;
+    opacity: 0.5;
+}
+
+#pcard > pixel.clickable:not(.isHole){
+    background: orange;
+}
