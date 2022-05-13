@@ -22,16 +22,30 @@
                 <p>
                     <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd>
                 </p>
-                <div id="buttons">
+                <p style="color:white; text-shadow: orange 0 0 .5vw, orange 0 0 1vw;">
+                    Punch the card before you start.
+                </p>
+                <!-- Yes. I love inline styling. :) -->
+                <div id="dashButtons">
                     <button id="btnReset" onclick="resetGame()">RESET</button>
-                    <button id="btnSave">SAVE-IMG</button>
-                    <button id="btnSaveCode">SAVE-CODE</button>
+                    <button id="btnSave" onclick="alert('Take a screenshot instead!!! :P')"">SAVE-IMG</button>
+                    <button id="btnSaveCode" onclick="copyCode()">COPY-CODE</button>
                 </div>
                 <h2>Operations</h2>
                 <div id="history" contenteditable="true">
                 </div>
             </div>
             <div id="game">
+                <div id="pButtons">
+                    <button id="shiftLeft" onclick="pShift(-1)">&lt&lt</button>
+                    <button id="btnPunch" onclick="punch()">PUNCH-ALL</button>
+                    <div id="cards">
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
+                    </div>
+                    <button id="shiftLeft" onclick="pShift(-1)">&gt&gt</button>
+                </div>
                 <div id="pcard"></div>
                 <div id="pixels"></div>
             </div>

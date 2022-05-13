@@ -1,4 +1,4 @@
-#buttons{
+#dashButtons{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -81,4 +81,35 @@ button:active{
 
 #pcard > pixel.clickable:not(.isHole){
     background: orange;
+}
+
+#pButtons{
+    display: flex;
+    margin-bottom: 1.5vw;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+#cards{
+    display: inline-flex;
+    justify-content: space-evenly;
+    width: 30%;
+}
+
+#pButtons button{
+    margin: 0;
+    padding: 10px;
+    border: #FFF solid 3px;
+    font-size: .8vw;
+    color: orange;
+    border: orange 3px solid;
+}
+
+#pButtons button:hover{
+    box-shadow: orange 0 0 1em;
+    text-shadow: orange 0 0 .5em;
+}
+
+#pButtons button:active{
+    background-color: orange;
 }
