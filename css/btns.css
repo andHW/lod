@@ -113,3 +113,7 @@ button:active{
 #pButtons button:active{
     background-color: orange;
 }
+
+#btnPunch{
+    background-color: white;
+}

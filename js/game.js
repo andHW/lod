@@ -2,7 +2,14 @@
 const DIM = 32;
 const BSIZE = 3;
 const REALDIM = DIM + BSIZE;
-const DEFAULT_COLORS = ["", "#000", "#FFF", "#F00", "#0F0", "#00F", "#FF0", "#F0F", "#0FF"];
+const RPLACE_COLORS = [
+    "#FFFFFF", "#E4E4E4", "#888888", "#222222",
+    "#FFA7D1", "#E50000", "#E59500", "#A06A42",
+    "#E5D900", "#94E044", "#02BE01", "#00D3DD",
+    "#0083C7", "#0000EA", "#CF6EE4", "#820080"
+];
+// const DEFAULT_COLORS = ["", "#000", "#FFF", "#F00", "#0F0", "#00F", "#FF0", "#F0F", "#0FF"];
+const DEFAULT_COLORS = [""].concat(RPLACE_COLORS);
 
 let readCopyCode = false;
 let pixels = new Array(REALDIM * REALDIM);
@@ -31,11 +38,11 @@ class PCardSlot {
         this.clickable = clickable;
     }
 
-    punch(){
+    punch() {
         this.isHole = true;
     }
 
-    toggle(){
+    toggle() {
         this.clickable = !this.clickable;
     }
 }
@@ -256,13 +263,13 @@ function resetGame() {
 }
 
 function copyCode() {
-    if (!readCopyCode){
+    if (!readCopyCode) {
         alert("WARNING: This will replace the content in your clipboard. Press OK and try again if you really want to do this.");
         readCopyCode = true;
     }
 
     let $code = document.querySelector('#history');
-    navigator.clipboard.writeText($code.innerHTML);
+    navigator.clipboard.writeText($code.textContent);
 }
 
 function hardResetGame() {
