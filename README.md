@@ -33,6 +33,10 @@ The youtube videos below are very inspiring to this project.
 <!-- The video above is very clear. The best on Youtube. -->
 - How Jacquard Loom Weaves More Than Two Colors: https://youtu.be/ZmJSz94oqh4
 
+### Other web projects
+
+This project is of course inspired by [r/place on reddit](https://www.reddit.com/r/place/) as well.
+
 ### A Jojo Reference
 
 This project is also inspired by Araki's artworks.
@@ -44,3 +48,5 @@ This project is also inspired by Araki's artworks.
 ## Technical Details
 
 The project is written in vanilla JS.
+
+The imageCode generator (TODO) is written in Python.
