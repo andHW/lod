@@ -4,6 +4,7 @@ const BSIZE = 3;
 const REALDIM = DIM + BSIZE;
 const DEFAULT_COLORS = ["", "#000", "#FFF", "#F00", "#0F0", "#00F", "#FF0", "#F0F", "#0FF"];
 
+let readCopyCode = false;
 let pixels = new Array(REALDIM * REALDIM);
 let pcard = new Array(DIM);
 
@@ -240,6 +241,11 @@ function resetGame() {
 }
 
 function copyCode() {
+    if (!readCopyCode){
+        alert("WARNING: This will replace the content in your clipboard. Press OK and try again if you really want to do this.");
+        readCopyCode = true;
+    }
+
     let $code = document.querySelector('#history');
     navigator.clipboard.writeText($code.innerHTML);
 }
