@@ -170,7 +170,7 @@ function initPixels() {
             isBorder = false;
         }
 
-        pixels[i] = new Pixel(color, isBorder, isPallete, isActive, false);
+        pixels[i] = new Pixel(color, isBorder, isPallete, isActive, true);
     }
 }
 
@@ -207,7 +207,7 @@ function updateGame(dx, dy) {
         c = curPixel.color;
     }
 
-    if (!curPixel.isBlocked) {
+    if (!curPixel.isBlocked || curPixel.isBorder) {
         pixels[nx + ny * REALDIM].color = c;
     }
 
