@@ -1,4 +1,4 @@
-# ROADMAP
+# Roadmap
 
 This document contains the roadmap of the current project.
 
