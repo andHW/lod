@@ -8,4 +8,5 @@ This document contains the roadmap of the current project.
 - [ ] implement punched card operations
 - [ ] implement the code loading feature
 - [ ] implement the code generating script in Python
+- [ ] implement image saving (canvas pixel)
 - [ ] refactor the messy js scripts

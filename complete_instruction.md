@@ -6,13 +6,14 @@ the weaving device on your own.
 
 ## Basic Key Mappings
 
-| key     | function    |
-| ------- | ----------- |
-| `W`     | Up          |
-| `A`     | Down        |
-| `S`     | Right       |
-| `D`     | Left        |
-| `H`     | Left Shift  |
-| `L`     | Right Shift |
-| `Space` | Punch All   |
-| `0-9`   | swap cards  |
+| key     | function      |
+| ------- | ------------- |
+| `W`     | Up            |
+| `A`     | Down          |
+| `S`     | Right         |
+| `D`     | Left          |
+| `H`     | Left Shift    |
+| `L`     | Right Shift   |
+| `Space` | Punch All     |
+| `0-9`   | swap cards    |
+| `B`     | remove border |

@@ -51,3 +51,7 @@ This project is also inspired by Araki's artworks.
 The web-based weaving machine is written in vanilla JS.
 
 The imageCode generator (TODO) is written in Python.
+
+### Limitations
+
+- The web app is only partially responsive.
