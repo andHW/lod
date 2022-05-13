@@ -52,11 +52,11 @@
                     <button id="shiftLeft" onclick="pShift(-1)">&lt&lt</button>
                     <button id="btnPunch" onclick="punchAll()">PUNCH-ALL</button>
                     <div id="cards">
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
+                        <button onclick="loadPresetPcard(0)">1</button>
+                        <button onclick="loadPresetPcard(1)">2</button>
+                        <!-- <button>3</button> -->
                     </div>
-                    <button id="shiftLeft" onclick="pShift(-1)">&gt&gt</button>
+                    <button id="shiftRight" onclick="pShift(+1)">&gt&gt</button>
                 </div>
                 <div id="pcard"></div>
                 <div id="pixels"></div>

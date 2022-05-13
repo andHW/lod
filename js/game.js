@@ -13,7 +13,10 @@ const DEFAULT_COLORS = [""].concat(RPLACE_COLORS);
 
 let readCopyCode = false;
 let pixels = new Array(REALDIM * REALDIM);
-let pcard = new Array(DIM);
+let pcard = new Array(REALDIM);
+let presetPCards = new Array(2);
+presetPCards[0] = new Array(REALDIM);
+presetPCards[1] = new Array(REALDIM);
 
 // gx,gy = game x,y (the active pixel cordinates)
 let gx = 0;
@@ -32,18 +35,15 @@ class Pixel {
     }
 }
 
+
+
 class PCardSlot {
-    constructor(isHole, clickable) {
+    constructor(isHole) {
         this.isHole = isHole;
-        this.clickable = clickable;
     }
 
     punch() {
         this.isHole = true;
-    }
-
-    toggle() {
-        this.clickable = !this.clickable;
     }
 }
 
@@ -64,10 +64,10 @@ function toggleCol(colI) {
     }
 }
 
-function unBlockCol(colI) {
+function setCol(colI, block) {
     for (let i = 0; i < REALDIM; i++) {
         let pi = colI + i * REALDIM;
-        pixels[pi].isBlocked = false;
+        pixels[pi].isBlocked = block;
         v_updatePixel(pi);
     }
 }
@@ -93,9 +93,7 @@ function v_updatePCard() {
             newPElm.classList.add('isHole');
         }
 
-        if (p.clickable) {
-            newPElm.classList.add('clickable');
-        }
+        newPElm.classList.add('clickable');
 
         let ci = i;
         newPElm.addEventListener('click', function () {
@@ -162,15 +160,40 @@ function v_createPixels() {
     }
 }
 
+function pShift(leftOrRight){
+    // https://stackoverflow.com/questions/1985260/rotate-the-elements-in-an-array-in-javascript
+    // Left = -1; Right = 1 
+    if (leftOrRight > 0) pcard.unshift(pcard.pop());
+    else pcard.push(pcard.shift());
+
+    for (let i = 0; i < REALDIM; i++) {
+        setCol(i, pcard[i].isHole);
+    }
+
+    v_updatePCard();
+}
+
+function loadPresetPcard(ci){
+    for (let i = 0; i < REALDIM; i++) {
+        pcard[i].isHole = presetPCards[ci][i].isHole;
+    }
+    for (let i = 0; i < REALDIM; i++) {
+        setCol(i, !pcard[i].isHole);
+    }
+    v_updatePCard();
+}
+
 function initPCards() {
     for (let i = 0; i < REALDIM; i++) {
-        let isClickable = true;
         let isHole = false;
-        if (i < BSIZE || i >= DIM) {
-            // isHole = false;
-            isClickable = false;
-        }
-        pcard[i] = new PCardSlot(isHole, isClickable);
+        pcard[i] = new PCardSlot(isHole);
+        presetPCards[0][i] = new PCardSlot(isHole);
+        presetPCards[1][i] = new PCardSlot(false);
+    }
+    
+    for (let i = 0; i <= REALDIM; i+=2) {
+        let isHole = true;
+        presetPCards[0][i] = new PCardSlot(isHole);
     }
 }
 
@@ -319,9 +342,22 @@ document.addEventListener("keydown", function (event) {
             break;
 
         case "Space":
+            event.preventDefault();
             punchAll();
             break;
 
+        case "KeyH":
+            pShift(-1);
+            break;
+        case "KeyL":
+            pShift(1);
+            break;
+        case "Digit1":
+            loadPresetPcard(0);
+            break;
+        case "Digit2":
+            loadPresetPcard(1);
+            break;
         default:
             return;
     }
@@ -330,7 +366,7 @@ document.addEventListener("keydown", function (event) {
 function punchAll() {
     for (let i = 0; i < REALDIM; i++) {
         pcard[i].punch();
-        unBlockCol(i);
+        setCol(i, false);
     }
     v_updatePCard();
     addAction("P");
