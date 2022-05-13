@@ -51,13 +51,16 @@ function v_updateActions() {
     let $historyDiv = document.querySelector('#history');
     $historyDiv.innerHTML = actions.join("");
     $historyDiv.scrollTop = $historyDiv.scrollHeight;
+
+    let $oSizeElm = document.querySelector('#oSize');
+    $oSizeElm.innerHTML = actions.length;
 }
 
 function toggleCol(colI) {
     for (let i = 0; i < REALDIM; i++) {
         let pi = colI + i * REALDIM;
         pixels[pi].isBlocked = !pixels[pi].isBlocked;
-        // v_updatePixel(pi);
+        v_updatePixel(pi);
     }
 }
 
@@ -65,6 +68,7 @@ function unBlockCol(colI) {
     for (let i = 0; i < REALDIM; i++) {
         let pi = colI + i * REALDIM;
         pixels[pi].isBlocked = false;
+        v_updatePixel(pi);
     }
 }
 
@@ -125,6 +129,13 @@ function v_updatePixel(pi) {
     } else {
         $pixel.style = ""
     }
+
+    if (p.isBlocked && !p.isPallete) {
+        $pixel.classList.add('blocked');
+    }
+    else {
+        $pixel.classList.remove('blocked');
+    }
 }
 
 function v_createPixels() {
@@ -142,23 +153,13 @@ function v_createPixels() {
         newPElm.id = "pixel-" + i;
         newPElm.setAttribute("x", i % dim);
         newPElm.setAttribute("y", Math.floor(i / dim));
-
-        if (p.isBorder) {
-            newPElm.classList.add('border');
-        }
-
-        if (p.isActive) {
-            newPElm.classList.add('active');
-        }
-
-        if (p.color != "") {
-            newPElm.style.background = p.color;
-            newPElm.style.backgroundColor = p.color;
-        }
-
         $pixelsDiv.appendChild(newPElm);
     }
     $pixelsDiv.style.width = dim + "vw";
+
+    for (let i = 0; i < dim * dim; i++) {
+        v_updatePixel(i);
+    }
 }
 
 function initPCards() {
@@ -210,6 +211,11 @@ function xyToPIndex(x, y) {
     return x + y * REALDIM;
 }
 
+function addAction(c){
+    actions.push(c);
+    v_updateActions();
+}
+
 // dx, dy = direction x/y
 function updateGame(dx, dy) {
     // nx,ny = new x/y
@@ -230,18 +236,17 @@ function updateGame(dx, dy) {
         c = curPixel.color;
     }
 
-    if (!curPixel.isBlocked || curPixel.isBorder) {
+    if (!curPixel.isBlocked) {
         pixels[nx + ny * REALDIM].color = c;
     }
 
     let magic = Math.abs((dx + 1) * dx + (dy + 2) * dy);
     let action = ["A", "W", "D", "S"][magic];
-    actions.push(action);
+    addAction(action);
 
     // v_createPixels();
     v_updatePixel(xyToPIndex(gx, gy));
     v_updatePixel(xyToPIndex(nx, ny));
-    v_updateActions();
     gx = nx;
     gy = ny;
 }
@@ -313,6 +318,10 @@ document.addEventListener("keydown", function (event) {
             // resetGame();
             break;
 
+        case "Space":
+            punchAll();
+            break;
+
         default:
             return;
     }
@@ -324,4 +333,5 @@ function punchAll() {
         unBlockCol(i);
     }
     v_updatePCard();
+    addAction("P");
 }
