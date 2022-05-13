@@ -30,6 +30,14 @@ class PCardSlot {
         this.isHole = isHole;
         this.clickable = clickable;
     }
+
+    punch(){
+        this.isHole = true;
+    }
+
+    toggle(){
+        this.clickable = !this.clickable;
+    }
 }
 
 function v_updateActions() {
@@ -42,7 +50,14 @@ function toggleCol(colI) {
     for (let i = 0; i < REALDIM; i++) {
         let pi = colI + i * REALDIM;
         pixels[pi].isBlocked = !pixels[pi].isBlocked;
-        v_updatePixel(pi);
+        // v_updatePixel(pi);
+    }
+}
+
+function unBlockCol(colI) {
+    for (let i = 0; i < REALDIM; i++) {
+        let pi = colI + i * REALDIM;
+        pixels[pi].isBlocked = false;
     }
 }
 
@@ -142,9 +157,9 @@ function v_createPixels() {
 function initPCards() {
     for (let i = 0; i < REALDIM; i++) {
         let isClickable = true;
-        let isHole = true;
+        let isHole = false;
         if (i < BSIZE || i >= DIM) {
-            isHole = false;
+            // isHole = false;
             isClickable = false;
         }
         pcard[i] = new PCardSlot(isHole, isClickable);
@@ -295,3 +310,11 @@ document.addEventListener("keydown", function (event) {
             return;
     }
 });
+
+function punchAll() {
+    for (let i = 0; i < REALDIM; i++) {
+        pcard[i].punch();
+        unBlockCol(i);
+    }
+    v_updatePCard();
+}

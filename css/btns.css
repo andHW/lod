@@ -75,12 +75,12 @@ button:active{
 }
 
 #pcard > pixel.clickable.isHole{
-    background: transparent;
+    background: repeating-conic-gradient(#888 0% 25%, transparent 0% 50%) 50% / 20px 20px;
     opacity: 0.5;
 }
 
 #pcard > pixel.clickable:not(.isHole){
-    background: orange;
+    background: white;
 }
 
 #pButtons{
