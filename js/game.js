@@ -24,6 +24,7 @@ let gy = 30;
 let c = "";
 let actions = [];
 
+let badHistory = false;
 
 class Pixel {
     constructor(color, isBorder, isPallete, isActive, isBlocked) {
@@ -160,26 +161,36 @@ function v_createPixels() {
     }
 }
 
-function pShift(leftOrRight){
+function pShift(leftOrRight) {
     // https://stackoverflow.com/questions/1985260/rotate-the-elements-in-an-array-in-javascript
     // Left = -1; Right = 1 
-    if (leftOrRight > 0) pcard.unshift(pcard.pop());
-    else pcard.push(pcard.shift());
+    if (leftOrRight > 0) {
+        // LEFT
+        pcard.unshift(pcard.pop());
+        addAction("H");
+    }
+    else {
+        // RIGHT
+        pcard.push(pcard.shift());
+        addAction("L");
+    }
 
     for (let i = 0; i < REALDIM; i++) {
         setCol(i, pcard[i].isHole);
     }
 
     v_updatePCard();
+
 }
 
-function loadPresetPcard(ci){
+function loadPresetPcard(ci) {
     for (let i = 0; i < REALDIM; i++) {
         pcard[i].isHole = presetPCards[ci][i].isHole;
     }
     for (let i = 0; i < REALDIM; i++) {
         setCol(i, !pcard[i].isHole);
     }
+    addAction(ci + 1);
     v_updatePCard();
 }
 
@@ -190,8 +201,8 @@ function initPCards() {
         presetPCards[0][i] = new PCardSlot(isHole);
         presetPCards[1][i] = new PCardSlot(false);
     }
-    
-    for (let i = 0; i <= REALDIM; i+=2) {
+
+    for (let i = 0; i <= REALDIM; i += 2) {
         let isHole = true;
         presetPCards[0][i] = new PCardSlot(isHole);
     }
@@ -234,7 +245,7 @@ function xyToPIndex(x, y) {
     return x + y * REALDIM;
 }
 
-function addAction(c){
+function addAction(c) {
     actions.push(c);
     v_updateActions();
 }
@@ -306,57 +317,124 @@ function hardResetGame() {
     v_updatePCard();
 }
 
+function historyGood(text) {
+    return /^[WASDP12HL]*$/.test(text.toUpperCase());
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     hardResetGame();
+    $history = document.querySelector("#history");
 });
+
+function handleAction(action) {
+    switch (action) {
+        case "A":
+            updateGame(-1, 0);
+            break;
+        case "W":
+            updateGame(0, -1);
+            break;
+        case "D":
+            updateGame(1, 0);
+            break;
+        case "S":
+            updateGame(0, 1);
+            break;
+        case "R":
+            //resetGame();
+            break;
+        case "P":
+            punchAll();
+            break;
+        case "H":
+            pShift(-1);
+            break;
+        case "L":
+            pShift(1);
+            break;
+        case "1":
+            loadPresetPcard(0);
+            break;
+        case "2":
+            loadPresetPcard(1);
+            break;
+        default:
+            console.log("BUG: INVALID ACTION");
+            break
+    }
+}
 
 document.addEventListener("keydown", function (event) {
 
     if (document.activeElement.id == "history") {
+        if (event.code == "Enter") {
+            event.preventDefault();
+            // the operation maniupulator
+            if (!historyGood($history.textContent.trim())) {
+                $history.classList.add("badHistory");
+                badHistory = true;
+                return
+            }
+
+            badHistory = false;
+            $history.classList.remove("badHistory")
+            let newActions = $history.textContent.trim().toUpperCase().split("");
+
+            hardResetGame();
+            for (let i = 0; i < newActions.length; i++) {
+                handleAction(newActions[i]);
+            }
+            v_updateActions();
+        }
         return
+    }
+
+    if (badHistory) {
+        alert("Please fix the history before pressing any keys.");
+        return;
     }
 
     switch (event.code) {
         case "KeyW":
         case "ArrowUp":
-            updateGame(0, -1);
+            handleAction("W");
             break;
 
         case "KeyS":
         case "ArrowDown":
-            updateGame(0, 1);
+            handleAction("S");
             break;
 
         case "KeyA":
         case "ArrowLeft":
-            updateGame(-1, 0);
+            handleAction("A");
             break;
 
         case "KeyD":
         case "ArrowRight":
-            updateGame(1, 0);
+            handleAction("D");
             break;
 
         case "KeyR":
-            // resetGame();
+            handleAction("R");
             break;
 
         case "Space":
             event.preventDefault();
-            punchAll();
+            handleAction("P");
             break;
 
         case "KeyH":
-            pShift(-1);
+            handleAction("H");
             break;
         case "KeyL":
-            pShift(1);
+            handleAction("L");
             break;
         case "Digit1":
-            loadPresetPcard(0);
+            handleAction("1");
             break;
         case "Digit2":
-            loadPresetPcard(1);
+            handleAction("2");
             break;
         default:
             return;

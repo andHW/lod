@@ -6,14 +6,23 @@ the weaving device on your own.
 
 ## Basic Key Mappings
 
-| key     | function      |
-| ------- | ------------- |
-| `W`     | Up            |
-| `A`     | Down          |
-| `S`     | Right         |
-| `D`     | Left          |
-| `H`     | Left Shift    |
-| `L`     | Right Shift   |
-| `Space` | Punch All     |
-| `0-9`   | swap cards    |
-| `B`     | remove border |
+| Key     | Function    | Symbol |
+| ------- | ----------- | ------ |
+| `W`     | Up          | `W`    |
+| `A`     | Down        | `A`    |
+| `S`     | Right       | `S`    |
+| `D`     | Left        | `D`    |
+| `H`     | Left Shift  | `H`    |
+| `L`     | Right Shift | `L`    |
+| `Space` | Punch All   | `P`    |
+| `1`     | Load Card 1 | `1`    |
+| `2`     | Load Card 2 | `2`    |
+| `Enter` | Load Code   | -      |
+<!-- | `B`     | Remove border |`B`| -->
+
+## Intricate Machanisms
+
+- `Enter` only works when your code is valid and you are focusing the operations
+  input box.
+- Valid code can only contain the following characters: `W` `A` `S` `D` `H` `L`
+  `P` `1` `2`

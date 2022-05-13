@@ -98,3 +98,8 @@ p {
     outline: 0;
     border-color: yellow;
 }
+
+#history.badHistory {
+    outline: 0;
+    border-color: red;
+}
