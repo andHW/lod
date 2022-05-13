@@ -34,8 +34,7 @@ pixel {
     --box-shadow-size: .1vw;
     box-shadow: inset 0 0 0 var(--box-shadow-size) var(--box-shadow-color);
     background: repeating-conic-gradient(#888 0% 25%, transparent 0% 50%) 50% / 20px 20px;
-    transition: color 1s ease-in-out !important;
-    /* the transition above would only work if im not rendering the pixels by deleting them */
+    transition: background-color 1s ease-in-out !important;
 }
 
 pixel.border {

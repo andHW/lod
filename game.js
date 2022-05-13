@@ -97,7 +97,7 @@ function v_updatePixel(pi) {
     }
 
     if (p.color != "") {
-        $pixel.style.background = "#FFF";
+        $pixel.style.background = p.color;
         $pixel.style.backgroundColor = p.color;
     } else {
         $pixel.style = ""
@@ -129,7 +129,7 @@ function v_createPixels() {
         }
 
         if (p.color != "") {
-            newPElm.style.background = "#FFF";
+            newPElm.style.background = p.color;
             newPElm.style.backgroundColor = p.color;
         }
 
