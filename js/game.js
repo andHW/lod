@@ -1,7 +1,7 @@
 // should've built a game class but whatever
 const DIM = 32;
 const BSIZE = 3;
-const REALDIM = DIM + BSIZE*2;
+const REALDIM = DIM + BSIZE * 2;
 const RPLACE_COLORS = [
     "#FFFFFF", "#E4E4E4", "#888888", "#222222",
     "#FFA7D1", "#E50000", "#E59500", "#A06A42",
@@ -139,7 +139,7 @@ function v_updatePixel(pi) {
 
 function v_createPixels() {
     let $pixelsDiv = document.querySelector('#pixels');
-    let dim = DIM + BSIZE*2;
+    let dim = DIM + BSIZE * 2;
 
     $pixelsDiv.replaceChildren();
     $pixelsDiv.style.width = dim + "vw";
@@ -209,14 +209,14 @@ function initPCards() {
 }
 
 function initPixels() {
-    let realDim = DIM + BSIZE*2;
+    let realDim = DIM + BSIZE * 2;
     for (let i = 0; i < realDim * realDim; i++) {
         let x = i % realDim;
         let y = Math.floor(i / realDim);
         let isBorder = x < BSIZE || x >= realDim - BSIZE || y < BSIZE || y >= realDim - BSIZE;
 
         let colors = DEFAULT_COLORS;
-        let pRowY = DIM+BSIZE;
+        let pRowY = DIM + BSIZE;
         let isPallete = y == pRowY && x >= BSIZE && x <= DIM && x < colors.length + BSIZE;
 
         let isActive = x == gx && y == gy;
@@ -233,8 +233,8 @@ function initPixels() {
 }
 
 function initGame() {
-    gx = BSIZE-1;
-    gy = DIM+BSIZE;
+    gx = BSIZE - 1;
+    gy = DIM + BSIZE;
     c = "";
     actions = [];
     initPCards();
@@ -278,7 +278,7 @@ function updateGame(dx, dy, updateView = true) {
     let action = ["A", "W", "D", "S"][magic];
     addAction(action);
 
-    if (updateView){
+    if (updateView) {
         v_updatePixel(xyToPIndex(gx, gy));
         v_updatePixel(xyToPIndex(nx, ny));
     }
