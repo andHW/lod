@@ -1,7 +1,7 @@
 // should've built a game class but whatever
 const DIM = 32;
 const BSIZE = 3;
-const REALDIM = DIM + BSIZE;
+const REALDIM = DIM + BSIZE*2;
 const RPLACE_COLORS = [
     "#FFFFFF", "#E4E4E4", "#888888", "#222222",
     "#FFA7D1", "#E50000", "#E59500", "#A06A42",
@@ -19,8 +19,8 @@ presetPCards[0] = new Array(REALDIM);
 presetPCards[1] = new Array(REALDIM);
 
 // gx,gy = game x,y (the active pixel cordinates)
-let gx = 0;
-let gy = 30;
+let gx = -1;
+let gy = -1;
 let c = "";
 let actions = [];
 
@@ -139,7 +139,7 @@ function v_updatePixel(pi) {
 
 function v_createPixels() {
     let $pixelsDiv = document.querySelector('#pixels');
-    let dim = DIM + BSIZE;
+    let dim = DIM + BSIZE*2;
 
     $pixelsDiv.replaceChildren();
     $pixelsDiv.style.width = dim + "vw";
@@ -209,14 +209,14 @@ function initPCards() {
 }
 
 function initPixels() {
-    let realDim = DIM + BSIZE;
+    let realDim = DIM + BSIZE*2;
     for (let i = 0; i < realDim * realDim; i++) {
         let x = i % realDim;
         let y = Math.floor(i / realDim);
         let isBorder = x < BSIZE || x >= realDim - BSIZE || y < BSIZE || y >= realDim - BSIZE;
 
         let colors = DEFAULT_COLORS;
-        let pRowY = DIM;
+        let pRowY = DIM+BSIZE;
         let isPallete = y == pRowY && x >= BSIZE && x <= DIM && x < colors.length + BSIZE;
 
         let isActive = x == gx && y == gy;
@@ -233,8 +233,8 @@ function initPixels() {
 }
 
 function initGame() {
-    gx = 1;
-    gy = 32;
+    gx = BSIZE-1;
+    gy = DIM+BSIZE;
     c = "";
     actions = [];
     initPCards();
@@ -251,7 +251,7 @@ function addAction(c) {
 }
 
 // dx, dy = direction x/y
-function updateGame(dx, dy) {
+function updateGame(dx, dy, updateView = true) {
     // nx,ny = new x/y
     let nx = gx + dx;
     let ny = gy + dy;
@@ -278,9 +278,10 @@ function updateGame(dx, dy) {
     let action = ["A", "W", "D", "S"][magic];
     addAction(action);
 
-    // v_createPixels();
-    v_updatePixel(xyToPIndex(gx, gy));
-    v_updatePixel(xyToPIndex(nx, ny));
+    if (updateView){
+        v_updatePixel(xyToPIndex(gx, gy));
+        v_updatePixel(xyToPIndex(nx, ny));
+    }
     gx = nx;
     gy = ny;
 }
@@ -326,19 +327,19 @@ document.addEventListener("DOMContentLoaded", function () {
     $history = document.querySelector("#history");
 });
 
-function handleAction(action) {
+function handleAction(action, updateView = true) {
     switch (action) {
         case "A":
-            updateGame(-1, 0);
+            updateGame(-1, 0, updateView);
             break;
         case "W":
-            updateGame(0, -1);
+            updateGame(0, -1, updateView);
             break;
         case "D":
-            updateGame(1, 0);
+            updateGame(1, 0, updateView);
             break;
         case "S":
-            updateGame(0, 1);
+            updateGame(0, 1, updateView);
             break;
         case "R":
             //resetGame();
@@ -385,6 +386,9 @@ document.addEventListener("keydown", function (event) {
                 handleAction(newActions[i]);
             }
             v_updateActions();
+            for (let i = 0; i < REALDIM * REALDIM; i++) {
+                v_updatePixel(i);
+            }
         }
         return
     }

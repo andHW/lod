@@ -22,7 +22,9 @@ the weaving device on your own.
 
 ## Intricate Machanisms
 
+- Press `P` or the orange `PUNCH-ALL` to enter the free weaving mode.
 - `Enter` only works when your code is valid and you are focusing the operations
   input box.
 - Valid code can only contain the following characters: `W` `A` `S` `D` `H` `L`
   `P` `1` `2`
+- The loading process could take very long if the code is too long (>4000 operations.)
