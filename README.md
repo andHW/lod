@@ -19,9 +19,11 @@ You may check out the class repo [here](https://github.com/denten-courses/LITAI/
 ### Teaching Staffs
 
 - [Prof. Dennis Yi Tenen](https://github.com/denten)
-- [TA Beah Jacobson](https://github.com/beahj)
+- [**TA Beah Jacobson**](https://github.com/beahj)
 
 The brilliant class cannot happen without them!
+
+THANK YOU!!!
 
 ### Youtube Videos
 
