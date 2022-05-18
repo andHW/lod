@@ -79,8 +79,7 @@ Another note is maybe you could extend, criticize, or reinvent my project if
 you're also interested in the Jacquard Loom and web development at the same time
 (PLEASE CONSULT THE TA/PROF BEFORE YOU DO THIS).
 
-Don't expect my code is very neat, though. I spent 48 hours on the coding part
-only.
+Don't expect my code is very neat, though. I've only spent 48 hours on the coding part.
 
 Hopefully, this is not entirely useless.
 Peace.
