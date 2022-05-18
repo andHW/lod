@@ -2,6 +2,10 @@
 
 Loom of Doom is an HTML5/JavaScript weaving machine that weaves pixel arts.
 
+Since this machine is an abstract simulation of a Jacquard Loom, it is intended
+to be complicated and pointlessly tricky, but you could still find some
+techniques to make the pixel art creation process less painful.
+
 You can try it out here:
 
 - https://l.reas.me/
@@ -57,3 +61,26 @@ The imageCode generator is written in Python.
 ### Limitations
 
 - The web app is only partially responsive.
+- It doesn't really "recreate" parts and actual mechanism in the Jacquard Loom
+- No physical components are designed, so the experience is non-physical
+- The border is small. Although it is scalable, the interaction for a bigger board has to be redesigned. Such as auto-zooming.
+- There are still many features that could be implemented.
+
+## For my CS fellows who are taking this class in the future:
+
+You've made a brilliant choice! I took this class together with NLP in the same
+semester. It was super fun to learn the historical and technical aspects of NLP
+simultaneously. I got A+ in both classes while taking DS1, being a TA for the UI
+class, and finding a job at the same time, so doing them together is definitely
+doable, enjoyable, and, at the same time, rewarding in terms of the knowledge
+and the grade (if that's what you only care)!
+
+Another note is maybe you could extend, criticize, or reinvent my project if
+you're also interested in the Jacquard Loom and web development at the same time
+(PLEASE CONSULT THE TA/PROF BEFORE YOU DO THIS).
+
+Don't expect my code is very neat, though. I spent 48 hours on the coding part
+only.
+
+Hopefully, this is not entirely useless.
+Peace.
