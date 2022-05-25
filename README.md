@@ -6,13 +6,15 @@ Since this machine is an abstract simulation of a Jacquard Loom, it is intended
 to be complicated and pointlessly tricky, but you could still find some
 techniques to make the pixel art creation process less painful.
 
-I think of this project as a game, but you could also consider it an 
+I think of this project as a game, but you could also consider it an
 almost-useless machine 🫠.
 
 You can try it out here:
 
 - https://l.reas.me/
 - https://andhw.github.io/lod/
+
+![LOD's Screenshot](./screenshot.png?raw=true)
 
 ## Background
 
