@@ -6,6 +6,9 @@ Since this machine is an abstract simulation of a Jacquard Loom, it is intended
 to be complicated and pointlessly tricky, but you could still find some
 techniques to make the pixel art creation process less painful.
 
+I think of this project as a game, but you could also consider it an 
+almost-useless machine 🫠.
+
 You can try it out here:
 
 - https://l.reas.me/
@@ -63,10 +66,10 @@ The imageCode generator is written in Python.
 - The web app is only partially responsive.
 - It doesn't really "recreate" parts and actual mechanism in the Jacquard Loom
 - No physical components are designed, so the experience is non-physical
-- The border is small. Although it is scalable, the interaction for a bigger board has to be redesigned. Such as auto-zooming.
+- The board is small. Although it is scalable, the interaction for a bigger board has to be redesigned. Such as auto-zooming.
 - There are still many features that could be implemented.
 
-## For my CS fellows who are taking this class in the future:
+## Advice For my CS fellows who are taking this class in the future:
 
 You've made a brilliant choice! I took this class together with NLP in the same
 semester. It was super fun to learn the historical and technical aspects of NLP
@@ -81,5 +84,5 @@ you're also interested in the Jacquard Loom and web development at the same time
 
 Don't expect my code is very neat, though. I've only spent 48 hours on the coding part.
 
-Hopefully, this is not entirely useless.
+Hopefully, this piece of advice is not misleading or entirely useless.
 Peace.
