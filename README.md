@@ -71,7 +71,7 @@ The imageCode generator is written in Python.
 - The board is small. Although it is scalable, the interaction for a bigger board has to be redesigned. Such as auto-zooming.
 - There are still many features that could be implemented.
 
-## Advice For my CS fellows who are taking this class in the future:
+## Advice for my CS fellows who are taking this class in the future:
 
 You've made a brilliant choice! I took this class together with NLP in the same
 semester. It was super fun to learn the historical and technical aspects of NLP
